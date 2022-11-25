@@ -1,11 +1,10 @@
-from store.models import Product 
+from store.models import Product
 from django.shortcuts import render
 from .models import *
 from django.http import JsonResponse
-import json 
+import json
 import datetime
 from .utils import cookieCart, cartData, guestOrder
-
 
 # Create your views here.
 def store(request):
@@ -19,19 +18,20 @@ def store(request):
     context = {'products':products, 'cartItems':cartItems}
     return render(request, 'store/store.html', context)
 
+
 def cart(request):
-    data = cartData(request)
+	data = cartData(request)
 
-    cartItems = data['cartItems']
-    order = data['order']
-    items = data['items']
+	cartItems = data['cartItems']
+	order = data['order']
+	items = data['items']
 
-    context = {'items':items, 'order':order, 'cartItems':cartItems}
-    return render(request, 'store/cart.html', context)
+	context = {'items':items, 'order':order, 'cartItems':cartItems}
+	return render(request, 'store/cart.html', context)
 
 def checkout(request):
     data = cartData(request)
-
+	
     cartItems = data['cartItems']
     order = data['order']
     items = data['items']
@@ -92,8 +92,3 @@ def processOrder(request):
 		)
 
 	return JsonResponse('Payment submitted..', safe=False)
-
-
-
-
-
